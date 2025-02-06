@@ -11,7 +11,20 @@ export default async function Home() {
   } = await octokit.rest.users.getAuthenticated()
   console.log("Hello, %s", login)
 
-  //console.log(await octokit.rest.repos.get('dilwoarh/mini-cms-spike'));
+  const repo = await octokit.rest.repos.get({
+    owner: "dilwoarh",
+    repo: "mini-cms-spike",
+  })
+
+  console.log(repo.data.full_name)
+
+  const files = await octokit.rest.repos.getContent({
+    owner: "dilwoarh",
+    repo: "mini-cms-spike",
+    path: "/cms/data",
+  })
+
+  console.log(files)
 
   return (
     <div className="p-2 max-w-7xl mx-auto mt-5">
