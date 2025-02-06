@@ -34,7 +34,12 @@ export default async function Home() {
         ))}
       </ul>
 
-      <div className="mt-10 max-w-xl">
+      <form
+        className="mt-10 max-w-xl"
+        action="/api/github/create"
+        method="POST"
+        encType="application/json"
+      >
         <label
           htmlFor="page_name"
           className="block text-sm/6 font-medium text-gray-900"
@@ -53,7 +58,7 @@ export default async function Home() {
         <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Add page
         </button>
-      </div>
+      </form>
     </div>
   )
 }
