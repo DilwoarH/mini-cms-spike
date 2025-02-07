@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Octokit } from "octokit"
 
-export default async function Home({ params }: { params: { pageId: string } }) {
+export default async function Home({ params }: any) {
   const pageId = params.pageId
 
   console.log(pageId)
