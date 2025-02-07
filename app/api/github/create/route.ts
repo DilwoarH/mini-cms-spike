@@ -10,13 +10,24 @@ export async function POST(req: Request) {
     const { data: page } = await octokit.rest.repos.createOrUpdateFileContents({
       owner: "dilwoarh",
       repo: "mini-cms-spike",
-      path: "cms/data/" + pageName + ".yml",
+      path: "cms/data/" + pageName + ".json",
       message: "Create page " + pageName,
-      content: Buffer.from("title: " + pageName).toString("base64"),
+      content: Buffer.from(
+        JSON.stringify(
+          {
+            title: pageName,
+            body: "",
+          },
+          null,
+          4,
+        ),
+      ).toString("base64"),
     })
 
     if (page) {
-      return NextResponse.redirect(new URL("/cms/data/" + pageName, req.url))
+      return NextResponse.redirect(
+        new URL("/cms/data/" + pageName + ".json", req.url),
+      )
     } else {
       return NextResponse.json(
         { message: "Error creating page", page },
