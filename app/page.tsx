@@ -1,5 +1,7 @@
 import { Octokit } from "octokit"
 
+export const dynamic = "force-dynamic"
+
 export default async function Home() {
   // Create a personal access token at https://github.com/settings/tokens/new?scopes=repo
   const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN })
