@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { Octokit } from "octokit"
+import { kebabCase } from "lodash"
 
 export async function POST(req: Request) {
   try {
@@ -10,7 +11,7 @@ export async function POST(req: Request) {
     const { data: page } = await octokit.rest.repos.createOrUpdateFileContents({
       owner: "dilwoarh",
       repo: "mini-cms-spike",
-      path: "cms/data/" + pageName + ".json",
+      path: "cms/data/" + kebabCase(pageName) + ".json",
       message: "Create page " + pageName,
       content: Buffer.from(
         JSON.stringify(
@@ -26,7 +27,7 @@ export async function POST(req: Request) {
 
     if (page) {
       return NextResponse.redirect(
-        new URL("/cms/data/" + pageName + ".json", req.url),
+        new URL("/cms/data/" + kebabCase(pageName) + ".json", req.url),
       )
     } else {
       return NextResponse.json(
